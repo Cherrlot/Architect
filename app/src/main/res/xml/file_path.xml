@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <!--
+        https://blog.csdn.net/suyimin2010/article/details/98160581
+        https://log1992.com/index.php/archives/223/
+        files-path：          该方式提供在应用的内部存储区的文件/子目录的文件。
+                              它对应Context.getFilesDir返回的路径：eg:”/data/data/com.jph.simple/files”。
+
+        cache-path：          该方式提供在应用的内部存储区的缓存子目录的文件。
+                              它对应getCacheDir返回的路径：eg:“/data/data/com.jph.simple/cache”；
+
+        external-path：       该方式提供在外部存储区域根目录下的文件。
+                              它对应Environment.getExternalStorageDirectory返回的路径：
+
+        external-cache-path： 该方式提供在应用的外部存储区根目录的下的文件。
+                              它对应Context#getExternalFilesDir(String) Context.getExternalFilesDir(null)
+                              返回的路径。eg:”/storage/emulated/0/Android/data/com.jph.simple/files”
+        -->
+
+        <!-- name=“update”
+         相当于下面的path的别名，为了把真实的路径隐藏起来，这样就只能看到别名，如果按照这个别名路径去找文件的话肯定是找不到的。这个别名自己随便取，我把它叫做“update”
+
+         path=""
+         代表你要分享的真实的子目录名，空字符串代表根目录，注意该值必须是一个子目录，不能是文件名-->
+
+        <!-- 代表的目录即为：Environment.getExternalStorageDirectory()/Android/data/包名/ -->
+        <external-path
+            name="files_root"
+            path="Android/data/${applicationId}/" />
+
+        <!-- 代表的目录即为：Environment.getExternalStorageDirectory() -->
+        <external-path
+            name="external_storage_root"
+            path="." />
+
+        <!-- 代表的目录即为：Environment.getExternalStorageDirectory()/pics -->
+        <external-path
+            name="external"
+            path="pics" />
+    </paths>
+</resources>

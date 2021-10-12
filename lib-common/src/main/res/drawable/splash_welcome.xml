@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 整体的背景颜色 -->
+    <item>
+        <color android:color="@color/white" />
+    </item>
+
+    <!-- 头部 -->
+<!--    <item-->
+<!--        android:bottom="@dimen/DIMEN_151DP"-->
+<!--        android:gravity="fill">-->
+<!--        <bitmap android:src="@drawable/splash_top" />-->
+<!--    </item>-->
+
+    <!-- center -->
+<!--    <item-->
+<!--        android:bottom="@dimen/DIMEN_211DP"-->
+<!--        android:gravity="fill"-->
+<!--        android:top="@dimen/dp_81">-->
+<!--        <bitmap android:src="@drawable/splash_center" />-->
+<!--    </item>-->
+
+    <!-- 底部 -->
+    <item
+        android:gravity="center">
+        <bitmap android:src="@drawable/ic_launcher"/>
+    </item>
+</layer-list>

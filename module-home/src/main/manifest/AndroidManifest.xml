@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cherrlot.module.home">
+
+    <application
+        android:allowBackup="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name="com.cherrlot.lib_common.provider.InitContentProvider"
+            android:authorities="com.cherrlot.lib_common.provider.InitContentProvider"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.cherrlot.lib_common.initializer.MMKVInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.cherrlot.lib_common.initializer.ARouterInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.cherrlot.lib_common.initializer.LiveEventBusInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.cherrlot.lib_common.initializer.LogInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.cherrlot.lib_common.initializer.KoinInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

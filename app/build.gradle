@@ -1,0 +1,105 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id "org.jetbrains.kotlin.kapt" version "1.5.30"
+}
+
+android {
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        applicationId "com.cherrlot.architect"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+        versionCode libs.versions.versionCode.get().toInteger()
+        versionName libs.versions.versionName.get()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //aRouter配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
+        // 开启 Dex 分包
+        multiDexEnabled = true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'xiaozhun'
+            keyPassword 'xiaozhun2021'
+            storeFile file('./keystore/android.jks')
+            storePassword 'xiaozhun2021'
+        }
+        debug {
+            keyAlias 'xiaozhun'
+            keyPassword 'xiaozhun2021'
+            storeFile file('./keystore/android.jks')
+            storePassword 'xiaozhun2021'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+        //是否支持大工程模式
+        jumboMode = true
+        //预编译
+        preDexLibraries = true
+        //线程数
+        threadCount = 8
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true  //是否支持zip
+            minifyEnabled true  //启用混淆
+            shrinkResources true //打包去除无用文件 仅 启用混淆后有效
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "app_v${variant.versionName}_${buildType.name}_${releaseTime()}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation project(path: ':lib-common')
+    implementation project(path: ':module-login')
+    implementation project(path: ':module-home')
+    implementation libs.bundles.materialDialogBundle
+
+    implementation libs.arouterApi
+    kapt libs.arouterCompiler
+}
+
+private static def releaseTime() {
+    return new Date().format("MM-dd-HHmm")
+}

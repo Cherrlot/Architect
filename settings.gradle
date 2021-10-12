@@ -1,0 +1,229 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+    plugins {
+        id 'com.android.application' version '7.1.0-alpha11'
+        id 'com.android.library' version '7.1.0-alpha11'
+        id 'org.jetbrains.kotlin.android' version '1.5.30'
+    }
+    enableFeaturePreview('VERSION_CATALOGS')
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://jitpack.io' }
+    }
+
+    versionCatalogs {
+        libs {
+            /** build config **/
+            version('minSdk', '24')
+            version('compileSdk', '30')
+            version('targetSdk', '30')
+            version('versionCode', '20210909')
+            version('versionName', '1.0.0')
+
+            /** 0为开发环境  1为测试环境  2为线上环境 **/
+            version('netControl', '1')
+            /** 测试环境地址 **/
+            version('testApi', '"http://dubbo.womenhz.com/web/"')
+            /** 线上环境地址 **/
+            version('releaseApi', '"http://dubbo.womenhz.com/web/"')
+            version('logTag', '"Cherrlot"')
+
+            /** plugins **/
+            alias('androidApplication').toPluginId('com.android.application').version('7.1.0-alpha11')
+            alias('androidLibrary').toPluginId('com.android.library').version('7.1.0-alpha11')
+            alias('kotlinAndroid').toPluginId('org.jetbrains.kotlin.android').version('1.5.30')
+            alias('kotlinKapt').toPluginId('kotlin-kapt')
+
+            /** test */
+            alias('junit').to('junit:junit:4.13.2')
+            alias('extJunit').to('androidx.test.ext:junit:1.1.3')
+            alias('espressoCore').to('androidx.test.espresso:espresso-core:3.4.0')
+            bundle('androidxTest', ['extJunit', 'espressoCore'])
+
+            /** Kotlin */
+            alias('kotlinStdlib').to('org.jetbrains.kotlin', 'kotlin-stdlib').version('1.4.21')
+
+            /** androidx - appcompat */
+            alias('appcompat').to('androidx.appcompat', 'appcompat').version('1.3.0')
+            /** androidx core */
+            version('core_version', '1.6.0')
+            alias('androidxCore').to('androidx.core', 'core').versionRef('core_version')
+            alias('androidxCoreKtx').to('androidx.core', 'core-ktx').versionRef('core_version')
+            /** androidx material */
+            alias('material').to('com.google.android.material', 'material').version('1.4.0')
+            /** androidx 约束性布局 */
+            alias('constraintlayout').to('androidx.constraintlayout', 'constraintlayout').version('2.0.4')
+            bundle('androidCommon', ['androidxCoreKtx', 'appcompat', 'material', 'constraintlayout'])
+
+            /** androidx recyclerview */
+            alias('recyclerview').to('androidx.recyclerview', 'recyclerview').version('1.1.0')
+
+            /** androidx viewpager2 */
+            alias('viewpager2').to('androidx.viewpager2', 'viewpager2').version('1.0.0')
+
+            /** androidx multidex */
+            alias('multidex').to('androidx.multidex', 'multidex').version('2.0.1')
+
+            /** androidx activity */
+            version('activity_version', '1.1.0')
+            alias('activity').to('androidx.activity', 'activity').versionRef('activity_version')
+            alias('activityKtx').to('androidx.activity', 'activity-ktx').versionRef('activity_version')
+
+            /** androidx fragment */
+            version('fragment_version', '1.2.5')
+            alias('fragment').to('androidx.fragment', 'fragment').versionRef('fragment_version')
+            alias('fragmentKtx').to('androidx.fragment', 'fragment-ktx').versionRef('fragment_version')
+
+            /**
+             * Logger 日志打印
+             * - Github: [https://github.com/orhanobut/logger]
+             */
+            alias('logger').to('com.orhanobut', 'logger').version('2.2.0')
+
+            /**
+             * kotlin 协程
+             * - 指南：[https://www.kotlincn.net/docs/reference/coroutines/coroutines-guide.html]
+             * - Github：[https://github.com/Kotlin/kotlinx.coroutines]
+             */
+            alias('kotlinxCoroutinesAndroid').to('org.jetbrains.kotlinx', 'kotlinx-coroutines-android').version('1.4.0')
+
+            /**
+             * Retrofit
+             * - Github：[https://github.com/square/retrofit]
+             */
+            version('retrofit', '2.9.0')
+            alias('retrofit').to('com.squareup.retrofit2', 'retrofit').versionRef('retrofit')
+            alias('retrofitConverterGson').to('com.squareup.retrofit2', 'converter-gson').versionRef('retrofit')
+            alias('retrofitConverterScalars').to('com.squareup.retrofit2', 'converter-scalars').versionRef('retrofit')
+            bundle('retrofitBundle', ['retrofit', 'retrofitConverterGson', 'retrofitConverterScalars'])
+
+            /**
+             * okhttp
+             * - Github：[https://github.com/square/okhttp]
+             */
+            version('okhttp_version', '4.9.0')
+            alias('okhttp').to('com.squareup.okhttp3', 'okhttp').versionRef('okhttp_version')
+            alias('okhttpLogginInterceptor').to('com.squareup.okhttp3', 'logging-interceptor').versionRef('okhttp_version')
+            bundle('okhttpBundle', ['okhttp', 'okhttpLogginInterceptor'])
+
+            /** androidx lifecycle */
+            version('lifecycle_version', '2.2.0')
+            alias('lifecycleExtensions').to('androidx.lifecycle', 'lifecycle-extensions').versionRef('lifecycle_version')
+            alias('lifecycleRuntimeKtx').to('androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle_version')
+            alias('lifecycleViewmodelKtx').to('androidx.lifecycle', 'lifecycle-viewmodel-ktx').versionRef('lifecycle_version')
+            alias('lifecycleLivedataKtx').to('androidx.lifecycle', 'lifecycle-livedata-ktx').versionRef('lifecycle_version')
+            bundle('lifecycleBundle', ['lifecycleExtensions', 'lifecycleRuntimeKtx', 'lifecycleViewmodelKtx', 'lifecycleLivedataKtx'])
+
+            /**
+             * Zxing
+             * - Github：[https://github.com/zxing/zxing]
+             */
+            alias('zxing').to('com.google.zxing', 'core').version('3.4.0')
+
+            /**
+             * Koin
+             * - Github：[https://github.com/InsertKoinIO/koin]
+             */
+            version('koin_version', '3.1.2')
+            alias('koinAndroid').to('io.insert-koin', 'koin-android').versionRef('koin_version')
+            alias('koinAndroidCompat').to('io.insert-koin', 'koin-android-compat').versionRef('koin_version')
+            alias('koinAndroidxWorkmanager').to('io.insert-koin', 'koin-androidx-workmanager').versionRef('koin_version')
+            alias('koinAndroidxCompose').to('io.insert-koin', 'koin-androidx-compose').versionRef('koin_version')
+            bundle('koinBundle', ['koinAndroid', 'koinAndroidCompat', 'koinAndroidxWorkmanager', 'koinAndroidxCompose'])
+
+            /**
+             * Glide
+             * - Github：[https://github.com/bumptech/glide]
+             */
+            version('glide_version', '4.12.0')
+            alias('glide').to('com.github.bumptech.glide', 'glide').versionRef('glide_version')
+            alias('glideCompiler').to('com.github.bumptech.glide', 'compiler').versionRef('glide_version')
+            bundle('glideBundle', ['glide', 'glideCompiler'])
+
+            /**
+             * LiveEventBus
+             * - Github：[https://github.com/JeremyLiao/LiveEventBus]
+             */
+            alias('liveEventBus').to('com.jeremyliao', 'live-event-bus-x').version('1.7.2')
+
+            /**
+             * 状态栏工具
+             * - Github: [https://github.com/gyf-dev/ImmersionBar]
+             */
+            version('immersion_bar_version', '3.0.0')
+            alias('immersionbar').to('com.gyf.immersionbar', 'immersionbar').versionRef('immersion_bar_version')
+            alias('immersionbarKtx').to('com.gyf.immersionbar', 'immersionbar-ktx').versionRef('immersion_bar_version')
+            bundle('immersionbarBundle', ['immersionbar', 'immersionbarKtx'])
+
+            /**
+             * MMKV
+             * - Github: [https://github.com/tencent/mmkv]
+             */
+            alias('mmkv').to('com.tencent', 'mmkv').version('1.2.5')
+
+            /**
+             * ARouter 路由
+             * - Github: [https://github.com/alibaba/ARouter]
+             */
+            version('arouter_version', '1.5.1')
+            alias('arouterApi').to('com.alibaba', 'arouter-api').versionRef('arouter_version')
+            alias('arouterCompiler').to('com.alibaba', 'arouter-compiler').versionRef('arouter_version')
+
+            /** material_dialog https://github.com/afollestad/material-dialogs**/
+            version('material_dialog_version', '3.3.0')
+            alias('materialDialog').to('com.afollestad.material-dialogs', 'core').versionRef('material_dialog_version')
+            alias('materialDialogLifecycle').to('com.afollestad.material-dialogs', 'lifecycle').versionRef('material_dialog_version')
+            alias('materialDialogBottomsheets').to('com.afollestad.material-dialogs', 'bottomsheets').versionRef('material_dialog_version')
+            bundle('materialDialogBundle', ['materialDialog', 'materialDialogLifecycle', 'materialDialogBottomsheets'])
+
+            /** 屏幕适配 **/
+            alias('autosize').to('com.github.JessYanCoding', 'AndroidAutoSize').version('v1.2.1')
+
+            /** Banner **/
+            alias('banner').to('com.youth.banner', 'banner').version('2.1.0')
+
+            /** Android-PickerView https://github.com/Bigkoo/Android-PickerView **/
+            alias('pickerView').to('com.contrarywind', 'Android-PickerView').version('4.1.9')
+
+            /** 相册 https://github.com/LuckSiege/PictureSelector/blob/master/README_CN.md **/
+            alias('pictureLibrary').to('com.github.LuckSiege.PictureSelector', 'picture_library').version('v2.5.9')
+
+            /** startup https://blog.csdn.net/qq_40909351/article/details/106726204 **/
+            alias('startupRuntime').to('androidx.startup', 'startup-runtime').version('1.0.0')
+
+            /** MagicIndicator  https://github.com/hackware1993/MagicIndicator/tree/androidx **/
+            alias('magicIndicator').to('com.github.hackware1993', 'MagicIndicator').version('1.7.0')
+
+            /** 版本升级框架 https://github.com/teprinciple/UpdateAppUtils **/
+            alias('updateapputils').to('com.teprinciple', 'updateapputils').version('2.3.0')
+
+            /** easypermissions https://github.com/googlesamples/easypermissions **/
+            alias('easypermissions').to('pub.devrel', 'easypermissions').version('3.0.0')
+
+            /** 刷新框架 https://github.com/scwang90/SmartRefreshLayout **/
+            version('smartrefreshlayout_version', '2.0.3')
+            alias('refresh-layout').to('com.scwang.smart', 'refresh-layout-kernel').versionRef('smartrefreshlayout_version')
+            alias('refresh-layout-material').to('com.scwang.smart', 'refresh-header-material').versionRef('smartrefreshlayout_version')
+            alias('refresh-footer-classics').to('com.scwang.smart', 'refresh-footer-classics').versionRef('smartrefreshlayout_version')
+            bundle('refreshLayout', ['refresh-layout', 'refresh-layout-material', 'refresh-footer-classics'])
+        }
+    }
+}
+rootProject.name = "Architect"
+include ':app'
+
+include ':lib-common'
+include ':module-login'
+include ':module-home'

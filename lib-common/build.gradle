@@ -1,0 +1,81 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id "org.jetbrains.kotlin.kapt" version "1.5.30"
+    id "org.jetbrains.kotlin.plugin.parcelize" version "1.5.30"
+}
+
+android {
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+        versionCode libs.versions.versionCode.get().toInteger()
+        versionName libs.versions.versionName.get()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //aRouter配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        // 日志tag
+        buildConfigField('String', 'PRINT_LOG_TAG', libs.versions.logTag.get())
+        // 0为开发环境  1为测试环境  2为线上环境
+        if (libs.versions.netControl.get().toInteger() == 0) {
+            buildConfigField('String', 'BASE_URL', libs.versions.testApi.get())
+            //日志打印
+            buildConfigField('boolean', 'PRINT_LOG', 'true')
+        } else if (libs.versions.netControl.get().toInteger() == 1) {
+            buildConfigField('String', 'BASE_URL', libs.versions.testApi.get())
+            //日志打印
+            buildConfigField('boolean', 'PRINT_LOG', 'true')
+        } else if (libs.versions.netControl.get().toInteger() == 2) {
+            buildConfigField('String', 'BASE_URL', libs.versions.releaseApi.get())
+            //日志打印
+            buildConfigField('boolean', 'PRINT_LOG', 'false')
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+    api libs.autosize
+    api libs.multidex
+    api libs.logger
+    api libs.mmkv
+    api libs.updateapputils
+    api libs.startupRuntime
+    api libs.liveEventBus
+    api libs.activityKtx
+    api libs.fragmentKtx
+    api libs.kotlinxCoroutinesAndroid
+    api libs.easypermissions
+    api libs.arouterApi
+    kapt libs.arouterCompiler
+
+    api libs.bundles.androidCommon
+    api libs.bundles.retrofitBundle
+    api libs.bundles.okhttpBundle
+    api libs.bundles.koinBundle
+    api libs.bundles.materialDialogBundle
+    api libs.bundles.immersionbarBundle
+    api libs.bundles.lifecycleBundle
+    api libs.bundles.refreshLayout
+    api libs.bundles.glideBundle
+}

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".LoginActivity">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.cherrlot.lib_login.listener.LoginClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cherrlot.lib_login.LoginViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_backgroundPrimary"
+        app:layoutDescription="@xml/app_scene_login">
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_30DP"
+            android:background="?selectableItemBackground"
+            android:clickFilter="@{() -> listener.onRegisterClick(true)}"
+            android:gravity="center"
+            android:padding="@dimen/DIMEN_10DP"
+            android:text="@string/app_register"
+            android:textColor="@color/app_selector_login_register_text"
+            android:textSize="@dimen/DIMEN_18SP"
+            app:layout_constraintEnd_toStartOf="@id/tv_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:enabled="false" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/DIMEN_30DP"
+            android:background="?selectableItemBackground"
+            android:clickFilter="@{() -> listener.onRegisterClick(false)}"
+            android:gravity="center"
+            android:padding="@dimen/DIMEN_10DP"
+            android:text="@string/app_login"
+            android:textColor="@color/app_selector_login_register_text"
+            android:textSize="@dimen/DIMEN_18SP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_register"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/v_underline"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/DIMEN_2DP"
+            android:layout_marginStart="@dimen/DIMEN_40DP"
+            android:layout_marginEnd="@dimen/DIMEN_40DP"
+            android:background="@color/app_tintTheme"
+            app:layout_constraintEnd_toEndOf="@id/tv_register"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_register" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DIMEN_40DP"
+            android:layout_marginTop="@dimen/DIMEN_40DP"
+            android:layout_marginEnd="@dimen/DIMEN_40DP"
+            android:bind_til_error="@{viewModel.mUserNameError}"
+            android:hint="@string/app_please_enter_user_name"
+            app:endIconMode="clear_text"
+            app:errorIconTint="@color/app_tintError"
+            app:errorTextColor="@color/app_textError"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_login"
+            app:startIconDrawable="@drawable/app_vector_phone"
+            app:startIconTint="@color/app_tintTheme">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/DIMEN_8DP"
+                android:gravity="center_vertical"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:text="@={viewModel.mUserName}"
+                android:textColor="@color/app_textNormal"
+                android:textSize="@dimen/DIMEN_16SP"
+                tools:text="王五" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DIMEN_40DP"
+            android:layout_marginEnd="@dimen/DIMEN_40DP"
+            android:bind_til_error="@{viewModel.mPasswordError}"
+            android:hint="@string/app_please_enter_password"
+            app:endIconMode="password_toggle"
+            app:errorIconTint="@color/app_tintError"
+            app:errorTextColor="@color/app_textError"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_user_name"
+            app:startIconDrawable="@drawable/app_vector_password"
+            app:startIconTint="@color/app_tintTheme">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/DIMEN_8DP"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="@={viewModel.mPassword}"
+                android:textColor="@color/app_textNormal"
+                android:textSize="@dimen/DIMEN_16SP" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_repassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/DIMEN_40DP"
+            android:layout_marginEnd="@dimen/DIMEN_40DP"
+            android:bind_til_error="@{viewModel.mRePasswordError}"
+            android:hint="@string/app_please_enter_password_again"
+            android:visibility="@{viewModel.mRePasswordVisible}"
+            app:endIconMode="password_toggle"
+            app:errorIconTint="@color/app_tintError"
+            app:errorTextColor="@color/app_textError"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_password"
+            app:startIconDrawable="@drawable/app_vector_password"
+            app:startIconTint="@color/app_tintTheme">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/DIMEN_8DP"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="@={viewModel.mRePassword}"
+                android:textColor="@color/app_textNormal"
+                android:textSize="@dimen/DIMEN_16SP" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_register"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/DIMEN_48DP"
+            android:layout_marginStart="@dimen/DIMEN_40DP"
+            android:layout_marginTop="@dimen/DIMEN_60DP"
+            android:layout_marginEnd="@dimen/DIMEN_40DP"
+            android:clickFilter="@{() -> listener.onLoginClick()}"
+            android:text="@{viewModel.mButtonStr}"
+            android:textColor="@color/app_textPrimary"
+            android:textSize="@dimen/DIMEN_16SP"
+            app:backgroundTint="@color/app_tintTheme"
+            app:cornerRadius="@dimen/DIMEN_4DP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_repassword"
+            tools:text="注册" />
+
+        <com.cherrlot.lib_common.customeview.textview.FixedTextView
+            android:id="@+id/tv_login_by_fingerprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/DIMEN_20DP"
+            android:background="?selectableItemBackground"
+            android:drawablePadding="@dimen/DIMEN_4DP"
+            android:text="@string/app_login_by_fingerprint"
+            android:textColor="@color/app_textAccent"
+            android:textSize="@dimen/DIMEN_14SP"
+            android:visibility="gone"
+            app:drawableTint="@color/app_tintAccent"
+            app:ftv_drawableTop="@drawable/app_vector_fingerprint"
+            app:ftv_drawableTopHeight="@dimen/DIMEN_48DP"
+            app:ftv_drawableTopWidth="@dimen/DIMEN_48DP"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>
