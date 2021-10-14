@@ -5,8 +5,8 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id 'com.android.application' version '7.1.0-alpha11'
-        id 'com.android.library' version '7.1.0-alpha11'
+        id 'com.android.application' version '7.1.0-alpha13'
+        id 'com.android.library' version '7.1.0-alpha13'
         id 'org.jetbrains.kotlin.android' version '1.5.30'
     }
     enableFeaturePreview('VERSION_CATALOGS')
@@ -218,6 +218,9 @@ dependencyResolutionManagement {
             alias('refresh-layout-material').to('com.scwang.smart', 'refresh-header-material').versionRef('smartrefreshlayout_version')
             alias('refresh-footer-classics').to('com.scwang.smart', 'refresh-footer-classics').versionRef('smartrefreshlayout_version')
             bundle('refreshLayout', ['refresh-layout', 'refresh-layout-material', 'refresh-footer-classics'])
+
+            /** FlycoTabLayout https://github.com/H07000223/FlycoTabLayout **/
+            alias('flycoTabLayout').to('io.github.h07000223', 'flycoTabLayout').version('3.0.0')
         }
     }
 }

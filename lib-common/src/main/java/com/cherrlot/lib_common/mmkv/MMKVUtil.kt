@@ -33,10 +33,10 @@ class MMKVUtil <T>(var default: T) : ReadWriteProperty<Any?, T> {
             return mmkv?.decodeString(key, defaultValue)
         }
 
-        fun getParcelable(key: String): Parcelable? = getParcelable(key, null)
-        fun getParcelable(key: String, defaultValue: Parcelable?): Parcelable? {
+//        fun getParcelable(key: String): Parcelable? = getParcelable(key, null)
+        fun <T : Parcelable> getParcelable(key: String, defaultValue: T): T? {
             val mmkv = MMKV.mmkvWithID(MMKV_NAME_USER)
-            return mmkv?.decodeParcelable(key, null)
+            return mmkv?.decodeParcelable(key, defaultValue.javaClass)
         }
 
         fun getBoolean(key: String): Boolean? = getBoolean(key, false)
